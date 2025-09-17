@@ -1,6 +1,6 @@
 <?php
 session_start();
-$error = ''; // ✅ prevent undefined variable warning
+$error = ''; 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST["username"] ?? '';

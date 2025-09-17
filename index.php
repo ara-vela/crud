@@ -1,10 +1,11 @@
 <?php
     session_start();
     require 'dbcon.php';
+
     if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
-    header("Location: login.php");
-    exit;
-}
+        header("Location: login.php");
+        exit;
+    }
 ?>
 <!doctype html>
 <html lang="en">
@@ -19,7 +20,7 @@
     <title>Student CRUD</title>
 </head>
 <body>
-  
+
     <div class="container mt-4">
 
         <?php include('message.php'); ?>
@@ -42,6 +43,7 @@
                                     <th>Email</th>
                                     <th>Phone</th>
                                     <th>Course</th>
+                                    <th>Subjects</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -61,12 +63,16 @@
                                                 <td><?= $student['email']; ?></td>
                                                 <td><?= $student['phone']; ?></td>
                                                 <td><?= $student['course']; ?></td>
+                                                <td><?= $student['subjects']; ?></td>
+                                                
                                                 <td>
                                                     <a href="student-view.php?id=<?= $student['id']; ?>" class="btn btn-info btn-sm">View</a>
                                                     <a href="student-edit.php?id=<?= $student['id']; ?>" class="btn btn-success btn-sm">Edit</a>
+                                                
                                                     <form action="code.php" method="POST" class="d-inline">
-                                                        <button type="submit" name="delete_student" value="<?=$student['id'];?>" class="btn btn-danger btn-sm">Delete</button>
+                                                        <button type="submit" name="delete_student" value="<?= $student['id']; ?>" class="btn btn-danger btn-sm">Delete</button>
                                                     </form>
+                                                    <a href="subject-view.php?student_id=<?= $student['id']; ?>" class="btn btn-warning btn-sm">Add Subject</a>
                                                 </td>
                                             </tr>
                                             <?php
@@ -74,10 +80,9 @@
                                     }
                                     else
                                     {
-                                        echo "<h5> No Record Found </h5>";
+                                        echo "<tr><td colspan='6'><h5 class='text-center'>No Record Found</h5></td></tr>";
                                     }
                                 ?>
-                                
                             </tbody>
                         </table>
 
